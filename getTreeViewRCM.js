@@ -56,7 +56,6 @@ function handleResponse(res) {
       }
       var isInvalid = ignoreInvalidUsers && (obj.name.includes("Terminated") || obj.name.includes("KYC NOT") || obj.name.includes("Not Renew"))
       if (!isInvalid && (!fetchZeroBV || obj.bv == 0)) {
-          console.log("--",item)
         if (obj.bv >= greaterThan) {
           if (pushObj) {
             distibutors.push(obj);
