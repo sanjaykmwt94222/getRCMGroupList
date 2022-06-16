@@ -34,10 +34,21 @@ function handleResponse(res) {
   var objToFetch;
   if (res.length) {
     res.forEach((item, i) => {
+// Amount: 2854
+// AssociateBuyerNumber: 36526733
+// ChildNodeCount: 2
+// Club: null
+// CurrentLevel: null
+// Name: "[36526733]  ANIL DILIP SANDANSHIV"
+// ParentID: 0
+// PinLevel: null
+// Pv: 1367
+// Sponsor: 36478368
+// Status: "KYC OK"
       var dist = item.Name.split("  ");
-      var number = ((dist[0]).split("[")[1]).split("]")[0];
+      var number = item.AssociateBuyerNumber
       var name = dist[1];
-      var obj = { id: number, name: name, bv: item.BusinessVolume };
+      var obj = { id: number, name: name, bv: item.Pv };
       if (i == 0) {
         objToFetch = obj;
       } else {
@@ -45,6 +56,7 @@ function handleResponse(res) {
       }
       var isInvalid = ignoreInvalidUsers && (obj.name.includes("Terminated") || obj.name.includes("KYC NOT") || obj.name.includes("Not Renew"))
       if (!isInvalid && (!fetchZeroBV || obj.bv == 0)) {
+          console.log("--",item)
         if (obj.bv >= greaterThan) {
           if (pushObj) {
             distibutors.push(obj);
